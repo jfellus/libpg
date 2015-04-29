@@ -36,8 +36,13 @@
 // MATHS //
 ///////////
 
+#ifndef MIN
 #define MIN(a,b) ((a) < (b) ? (a) : (b))
+#endif
+#ifndef MAX
 #define MAX(a,b) ((a) > (b) ? (a) : (b))
+#endif
+#define TRIM(x,min,max) ( ((x) < (min)) ? (min) : ((x) > (max) ? (max) : (x) ) )
 
 inline bool is_diff(float x, float y) { return (fabs(x - y) > 1e-30); }
 
