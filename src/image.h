@@ -36,6 +36,7 @@ public:
 	inline void process(){}
 
 	inline unsigned char* operator()(int x, int y) { return &data[(y*w+x)*3]; }
+	inline const unsigned char* operator()(int x, int y) const { return &data[(y*w+x)*3]; }
 	inline unsigned char& operator[](int i) {return data[i];}
 	inline const unsigned char& operator[](int i) const {return data[i];}
 
