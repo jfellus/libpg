@@ -24,7 +24,7 @@
 template <typename T> class In {
 	T* e;
 public:
-	inline void init() {}
+	inline void init() {e=0;}
 	inline void process(T& _e) { e=&_e; }
 	OUTPUT(T, *e);
 };
@@ -32,9 +32,15 @@ public:
 template <typename T> class Out {
 	T* e;
 public:
-	inline void init() {}
+	inline void init() {e=0;}
 	inline void process(T& _e) { e=&_e; }
 	OUTPUT(T, *e);
+};
+
+class NOP {
+public:
+	inline void init() {}
+	inline void process() {  }
 };
 
 
