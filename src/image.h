@@ -33,6 +33,8 @@ public:
 
 	void free() {if(data) delete data; this->w = this->h = 0; data = NULL; bOwn = false;}
 
+	void clear() { memset(data, 0, w*h*3); }
+
 	inline void process(){}
 
 	inline unsigned char* operator()(int x, int y) { return &data[(y*w+x)*3]; }

@@ -56,6 +56,8 @@ public:
 		bOwn = false;
 	}
 
+	inline void clear() {		memset(data, 0, sizeof(float)*n);	}
+
 	Matrix& map(Matrix& m) { free(); return *this = m;}
 
 	void set_height(uint h) {this->h = h; this->n = this->w*this->h;}
@@ -101,16 +103,16 @@ public:
 };
 
 
-void read_matrix(const std::string& filename, Matrix& m) {
+inline void read_matrix(const std::string& filename, Matrix& m) {
 	if(!str_ends_with(filename, ".mat")) ERROR("Matrix format reader Not implemented yet ! (" << filename << ")");
 	std::ifstream f(filename.c_str(), std::ios::binary);
 	f.read((char*)&m.w, sizeof(m.w));
 	f.read((char*)&m.h, sizeof(m.h));
-	m.init(m.w,m.h);
+	m.init(m.h,m.w);
 	f.read((char*)m.data, m.w*m.h*sizeof(float));
 }
 
-void write_matrix(const std::string& filename, Matrix& m) {
+inline void write_matrix(const std::string& filename, Matrix& m) {
 	if(!str_ends_with(filename, ".mat")) ERROR("Matrix format reader Not implemented yet ! (" << filename << ")");
 	std::ofstream f(filename.c_str(), std::ios::binary);
 	f.write((char*)&m.w, sizeof(m.w));
@@ -119,7 +121,7 @@ void write_matrix(const std::string& filename, Matrix& m) {
 }
 
 
-void read_matrix_list(const std::string& filename, std::vector<Matrix>& list) {
+inline void read_matrix_list(const std::string& filename, std::vector<Matrix>& list) {
 	if(!str_ends_with(filename, ".matl")) ERROR("Matrix format reader Not implemented yet ! (" << filename << ")");
 	std::ifstream f(filename.c_str(), std::ios::binary);
 	if(!f.good()) ERROR("No such file : " << filename);
@@ -130,13 +132,13 @@ void read_matrix_list(const std::string& filename, std::vector<Matrix>& list) {
 		uint w,h;
 		f.read((char*)&w, sizeof(w));
 		f.read((char*)&h, sizeof(h));
-		m.init(w,h);
+		m.init(h,w);
 		f.read((char*)m.data, w*h*sizeof(float));
 		list.push_back(m);
 	}
 }
 
-void write_matrix_list(const std::string& filename, const std::vector<Matrix>& list) {
+inline void write_matrix_list(const std::string& filename, const std::vector<Matrix>& list) {
 	if(!str_ends_with(filename, ".matl")) ERROR("Matrix format writer Not implemented yet ! (" << filename << ")");
 	std::ofstream f(filename.c_str(), std::ios::binary);
 	size_t n = list.size();

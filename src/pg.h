@@ -14,8 +14,9 @@
 // TYPE-CHECKING AND CONVERSION //
 //////////////////////////////////
 
+#ifndef OUTPUT
 #define OUTPUT(type,member) inline operator type &() {return member;}
-
+#endif
 
 /////////////
 // IN-OUTS //
@@ -50,5 +51,21 @@ public:
 
 #define ERROR(x) do { throw std::runtime_error(TOSTRING(__PRETTY_FUNCTION__ << "@" << __LINE__ << " : " << x)); } while(0);
 
+
+///////////////
+// DEBUG NOP //
+///////////////
+
+#ifndef ___dbs
+#define ___dbs(plug)
+#endif
+
+#ifndef PARAM
+#define PARAM(type,var,callback)
+#endif
+
+#ifndef PGDB_PAUSE
+#define PGDB_PAUSE
+#endif
 
 #endif /* PG_H_ */
